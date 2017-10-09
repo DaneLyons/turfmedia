@@ -81,19 +81,23 @@
 
       .sideline {
         position: fixed;
-        padding: 100px 25px 25px 25px;
+        padding: 10px 25px 25px 25px;
         top:0;
         left:0;
         bottom:0;
         width:300px;
         background:#f2f2f2;
-        border-top:55px solid #e5e5e5;
+        overflow:auto;
       }
-      .logo {
+      /*.logo {
         position:absolute;
         top:5px;
         left:50%;
         transform:translate(-50%,-50%);
+      }*/
+      .logo {
+        float:left;
+        margin-right:15px;
       }
       .content {
         position: absolute;
@@ -373,26 +377,38 @@
         font-size: 20px;
         font-weight: 600;
       }
+
+      .players .era {
+        font-size:12px;
+        font-weight:bold;
+        padding-bottom:7px;
+        padding-top:15px;
+      }
     </style>
   </head>
   <body>
     <div id="app">
       <div class="sideline">
-        <img class="logo" src="../../img/logo-black.png" height="100" />
+        
 
         <div class="players">
-          <div class="player" v-for="(player, i) in players">
-            <input type="radio" name="pace" v-bind:value="i" v-model="pacePlayer" v-bind:id="'player'+i" /><label v-bind:for="'player'+i"></label>
-            <button
-              @click="player.active = !player.active"
-              v-bind:class="{active:player.active,inactive:!player.active,'pace-player':player.index==pacePlayer}"
-              v-bind:style="{background:colors(player.active,player.color)}"
-            >{{player.name}}</button>
+          <div class="eras" v-for="(era, eraIndex) in eras">
+            <div class="era">{{era}}</div>
+            <div class="player" v-for="(player, i) in playersFrom(eraIndex)">
+              <input type="radio" name="pace" v-bind:value="player.index" v-model="pacePlayer" v-bind:id="'player'+player.index" /><label v-bind:for="'player'+player.index"></label>
+              <button
+                @click="player.active = !player.active"
+                v-bind:class="{active:player.active,inactive:!player.active,'pace-player':player.index==pacePlayer}"
+                v-bind:style="{background:colors(player.active,player.color)}"
+              >{{player.name}}</button>
+            </div>
           </div>
         </div>
       </div>
       <div class="content">
         <div class="heading">
+          <img class="logo" src="../../img/logo-black.png" height="80" />
+
           <h1>Top 50 NFL QBs</h1>
           <h2>Relative to <span v-bind:style="{background:colors(true, players[pacePlayer].color)}">{{players[pacePlayer].name}}</span></h2>
         </div>
