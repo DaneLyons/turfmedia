@@ -5,18 +5,262 @@
     <title>title</title>
 
     <script src="../js/vue.min.js"></script>
+    <style>
+      .sideline {
+        position: absolute;
+        padding:25px;
+        top:0;
+        left:0;
+        bottom:0;
+        width:250px;
+        background:#f2f2f2;
+      }
+      .logo {
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+      }
+      .content {
+        position: absolute;
+        padding:50px;
+        top:0;
+        right:0;
+        bottom:0;
+        left:300px;
+        text-align:center;
+      }
+
+      .dashes {
+        position:absolute;
+        top:0;
+        bottom:0;
+        right:-26px;
+        width:20px;
+        border-left: 4px solid #f2f2f2;
+        overflow:hidden;
+      }
+
+      .dash {
+        width:6px;
+        height:4px;
+        margin-bottom:4px;
+        margin-left: 2px;
+        background:#f2f2f2;
+      }
+
+      .dash:nth-child(5n) {
+        width:12px;
+      }
+
+      svg {
+        position:relative;
+        z-index:100;
+      }
+
+      path {
+        fill: transparent;
+        stroke: #ddd;
+        stroke-width:2;
+      }
+
+      path.active {
+        stroke: red;
+      }
+
+      #graph {
+        position:relative;
+        width: 800px;
+        height: 500px;
+      }
+
+      .y-guides div {
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        height:0;
+        border-top:1px dashed #ddd;
+      }
+
+      .y-guides span {
+        position:absolute;
+        top:-1px;
+        left:-7px;
+        transform:translate(-100%,-50%);
+      }
+
+      .y-guides div:nth-child(2) {
+        top:25%;
+      }
+      .y-guides div:nth-child(3) {
+        top:50%;
+      }
+      .y-guides div:nth-child(4) {
+        top:75%;
+      }
+      .y-guides div:nth-child(5) {
+        top:100%;
+      }
+
+      .x-guides div {
+        position:absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        width:0;
+        border-left:1px dashed #ddd;
+      }
+
+      .x-guides span {
+        position:absolute;
+        bottom:-7px;
+        left:0;
+        transform:translate(-50%,100%);
+      }
+
+      .x-guides div:nth-child(2) {
+        left:calc(100% / 17);
+      }
+      .x-guides div:nth-child(3) {
+        left:calc(100% / 17 * 2);
+      }
+      .x-guides div:nth-child(4) {
+        left:calc(100% / 17 * 3);
+      }
+      .x-guides div:nth-child(5) {
+        left:calc(100% / 17 * 4);
+      }
+      .x-guides div:nth-child(6) {
+        left:calc(100% / 17 * 5);
+      }
+      .x-guides div:nth-child(7) {
+        left:calc(100% / 17 * 6);
+      }
+      .x-guides div:nth-child(8) {
+        left:calc(100% / 17 * 7);
+      }
+      .x-guides div:nth-child(9) {
+        left:calc(100% / 17 * 8);
+      }
+      .x-guides div:nth-child(10) {
+        left:calc(100% / 17 * 9);
+      }
+      .x-guides div:nth-child(11) {
+        left:calc(100% / 17 * 10);
+      }
+      .x-guides div:nth-child(12) {
+        left:calc(100% / 17 * 11);
+      }
+      .x-guides div:nth-child(13) {
+        left:calc(100% / 17 * 12);
+      }
+      .x-guides div:nth-child(14) {
+        left:calc(100% / 17 * 13);
+      }
+      .x-guides div:nth-child(15) {
+        left:calc(100% / 17 * 14);
+      }
+      .x-guides div:nth-child(16) {
+        left:calc(100% / 17 * 15);
+      }
+      .x-guides div:nth-child(17) {
+        left:calc(100% / 17 * 16);
+      }
+      .x-guides div:nth-child(18) {
+        left:calc(100% / 17 * 17);
+      }
+
+      .players {
+        padding-top:75px;
+        width:800px;
+        text-align:left;
+      }
+
+      *:focus {
+        outline:none;
+      }
+
+      button:hover {
+        cursor:pointer;
+      }
+
+      .players button {
+        display:inline-block;
+        margin:10px;
+        border:none;
+        background:#f2f2f2;
+      }
+
+      button.active {
+        background:#444;
+        color:#fff;
+      }
+
+      #info {
+        position:absolute;
+        top:0;
+        right:0;
+        left:0;
+        bottom:0;
+        background:rgba(0,0,0,.5);
+      }
+    </style>
   </head>
   <body>
-    <img src="../img/logo-black.png" />
-    <div id="app">{{message}}</div>
+    <div id="app">
+      <div class="sideline">
+        <img class="logo" src="../img/logo-black.png" height="38" />
+      <div>
+      <div class="content">
+        <div id="info"></div>
+        <div id="graph">
+          <svg width="800" height="500">
+            <path v-bind:d="graphLineDiff(0)" v-bind:style="{stroke: 'grey'}" />
+            <path v-bind:d="graphLineDiff(4)" v-bind:style="{stroke: 'grey'}" />
+            <path v-bind:d="graphLineDiff(24)" v-bind:style="{stroke: 'red'}" />
 
-    <script>
-      var app = new Vue({
-        el: '#app',
-        data: {
-          message: 'Hello World!'
-        }
-      })
-    </script>
+            <!-- <path v-for="(line, index) in lines" v-bind:d="graphLineDiff(index)" v-bind:class="{active:line.active}" /> -->
+
+            <!-- <path v-for="(line, index) in inactiveLines" v-bind:d="graphLineDiff(line.index)" />
+            <path class="active" v-for="(line, index) in activeLines" v-bind:d="graphLineDiff(line.index)" v-bind:class="{active:line.active}" /> -->
+          </svg>
+
+          <div class="y-guides">
+            <div><span>+1,300</span></div>
+            <div><span>+650</span></div>
+            <div><span>0</span></div>
+            <div><span>-650</span></div>
+            <div><span>-1,300</span></div>
+          </div>
+
+          <div class="x-guides">
+            <div><span>Week</span></div>
+            <div><span>1</span></div>
+            <div><span>2</span></div>
+            <div><span>3</span></div>
+            <div><span>4</span></div>
+            <div><span>5</span></div>
+            <div><span>6</span></div>
+            <div><span>7</span></div>
+            <div><span>8</span></div>
+            <div><span>9</span></div>
+            <div><span>10</span></div>
+            <div><span>11</span></div>
+            <div><span>12</span></div>
+            <div><span>13</span></div>
+            <div><span>14</span></div>
+            <div><span>15</span></div>
+            <div><span>16</span></div>
+            <div><span>17</span></div>
+          </div>
+        </div>
+        <div class="players">
+          <button v-for="(line, index) in lines" @click="line.active = !line.active" v-bind:class="{active:line.active}">{{line.name}}</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="graph.js"></script>
   </body>
 </html>

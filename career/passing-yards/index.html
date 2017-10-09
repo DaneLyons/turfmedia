@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <script src="https://use.typekit.net/pdv5vix.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    <script src="../../js/vue.min.js"></script>
+    <style>
+      body {
+        font-family: "aktiv-grotesk", sans-serif;
+      }
+
+      h2,h3,h4 {
+        font-weight: 600;
+      }
+
+      h1 {
+        font-weight: 900;
+      }
+
+      h2 span {
+        color:#fff;
+        padding:0 7px 3px 7px;
+        font-weight:400;
+        border-radius:4px;
+      }
+
+      [type="radio"]:checked,
+      [type="radio"]:not(:checked) {
+          position: absolute;
+          left: -9999px;
+      }
+      [type="radio"]:checked + label,
+      [type="radio"]:not(:checked) + label
+      {
+          position: relative;
+          padding-left: 18px;
+          cursor: pointer;
+          line-height: 20px;
+          display: inline-block;
+          color: #666;
+          top:-13px;
+      }
+      [type="radio"]:checked + label:before,
+      [type="radio"]:not(:checked) + label:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 16px;
+          height: 16px;
+          border: 1px solid #ddd;
+          border-radius: 100%;
+          background: #fff;
+      }
+      [type="radio"]:checked + label:after,
+      [type="radio"]:not(:checked) + label:after {
+          content: '';
+          width: 10px;
+          height: 10px;
+          background: #222;
+          position: absolute;
+          top: 4px;
+          left: 4px;
+          border-radius: 100%;
+          -webkit-transition: all 0.2s ease;
+          transition: all 0.2s ease;
+      }
+      [type="radio"]:not(:checked) + label:after {
+          opacity: 0;
+          -webkit-transform: scale(0);
+          transform: scale(0);
+      }
+      [type="radio"]:checked + label:after {
+          opacity: 1;
+          -webkit-transform: scale(1);
+          transform: scale(1);
+      }
+
+      .sideline {
+        position: fixed;
+        padding: 100px 25px 25px 25px;
+        top:0;
+        left:0;
+        bottom:0;
+        width:300px;
+        background:#f2f2f2;
+        border-top:55px solid #e5e5e5;
+      }
+      .logo {
+        position:absolute;
+        top:5px;
+        left:50%;
+        transform:translate(-50%,-50%);
+      }
+      .content {
+        position: absolute;
+        padding: 0 50px 50px 150px;
+        top:0;
+        right:0;
+        bottom:0;
+        left:350px;
+        text-align:center;
+      }
+
+      .dashes {
+        position:absolute;
+        top:0;
+        bottom:0;
+        right:-26px;
+        width:20px;
+        border-left: 4px solid #f2f2f2;
+        overflow:hidden;
+      }
+
+      .dash {
+        width:6px;
+        height:4px;
+        margin-bottom:4px;
+        margin-left: 2px;
+        background:#f2f2f2;
+      }
+
+      .dash:nth-child(5n) {
+        width:12px;
+      }
+
+      svg {
+        position:relative;
+        z-index:100;
+      }
+
+      path {
+        fill: transparent;
+        stroke: #ddd;
+        stroke-width:1;
+        transition: d 0.7s;
+      }
+
+      path.active {
+        stroke: #ff5757;
+        stroke-width:3;
+      }
+
+      #graph {
+        position:relative;
+        width: 800px;
+        height: 500px;
+      }
+
+      .y-guides div {
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        height:0;
+        border-top:1px dashed #ddd;
+      }
+
+      .y-guides span {
+        position:absolute;
+        top:-1px;
+        left:-7px;
+        font-size:12px;
+        transform:translate(-100%,-50%);
+      }
+
+      .y-guides div:nth-child(2) {
+        top:10%;
+      }
+      .y-guides div:nth-child(3) {
+        top:20%;
+      }
+      .y-guides div:nth-child(4) {
+        top:30%;
+      }
+      .y-guides div:nth-child(5) {
+        top:40%;
+      }
+      .y-guides div:nth-child(6) {
+        top:50%;
+      }
+      .y-guides div:nth-child(7) {
+        top:60%;
+      }
+      .y-guides div:nth-child(8) {
+        top:70%;
+      }
+      .y-guides div:nth-child(9) {
+        top:80%;
+      }
+      .y-guides div:nth-child(10) {
+        top:90%;
+      }
+      .y-guides div:nth-child(11) {
+        top:100%;
+      }
+
+
+
+      .x-guides div {
+        position:absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        width:0;
+        border-left:1px dashed #ddd;
+      }
+
+      .x-guides span {
+        position:absolute;
+        bottom:-7px;
+        left:0;
+        font-size:12px;
+        transform:translate(-50%,100%);
+      }
+
+      .x-guides div:nth-child(2) {
+        left:calc(100% / 20);
+      }
+      .x-guides div:nth-child(3) {
+        left:calc(100% / 20 * 2);
+      }
+      .x-guides div:nth-child(4) {
+        left:calc(100% / 20 * 3);
+      }
+      .x-guides div:nth-child(5) {
+        left:calc(100% / 20 * 4);
+      }
+      .x-guides div:nth-child(6) {
+        left:calc(100% / 20 * 5);
+      }
+      .x-guides div:nth-child(7) {
+        left:calc(100% / 20 * 6);
+      }
+      .x-guides div:nth-child(8) {
+        left:calc(100% / 20 * 7);
+      }
+      .x-guides div:nth-child(9) {
+        left:calc(100% / 20 * 8);
+      }
+      .x-guides div:nth-child(10) {
+        left:calc(100% / 20 * 9);
+      }
+      .x-guides div:nth-child(11) {
+        left:calc(100% / 20 * 10);
+      }
+      .x-guides div:nth-child(12) {
+        left:calc(100% / 20 * 11);
+      }
+      .x-guides div:nth-child(13) {
+        left:calc(100% / 20 * 12);
+      }
+      .x-guides div:nth-child(14) {
+        left:calc(100% / 20 * 13);
+      }
+      .x-guides div:nth-child(15) {
+        left:calc(100% / 20 * 14);
+      }
+      .x-guides div:nth-child(16) {
+        left:calc(100% / 20 * 15);
+      }
+      .x-guides div:nth-child(17) {
+        left:calc(100% / 20 * 16);
+      }
+      .x-guides div:nth-child(18) {
+        left:calc(100% / 20 * 17);
+      }
+      .x-guides div:nth-child(19) {
+        left:calc(100% / 20 * 18);
+      }
+      .x-guides div:nth-child(20) {
+        left:calc(100% / 20 * 19);
+      }
+      .x-guides div:nth-child(21) {
+        left:calc(100% / 20 * 20);
+      }
+
+      .players {
+        width:100%;
+        text-align:left;
+      }
+
+      *:focus {
+        outline:none;
+      }
+
+      button:hover {
+        cursor:pointer;
+      }
+
+      .players button {
+        display:inline-block;
+        border:none;
+        background:#f2f2f2;
+        border-radius:4px;
+      }
+
+      button.active {
+        background:#ff5757;
+        color:#fff;
+      }
+      button.inactive {
+        background:transparent !important;
+      }
+      button.pace-player {
+        background:#222;
+        color:#fff;
+      }
+
+      .player {
+        display: inline-block;
+        width: 50%;
+      }
+
+      .pace-player {
+        stroke-width:3px;
+      }
+
+      #info {
+        position:absolute;
+        top:0;
+        right:0;
+        left:0;
+        bottom:0;
+        background:rgba(0,0,0,.5);
+        z-index:1000;
+        transition:transform .25s ease-in-out;
+        transform:translate3d(100%,0,0);
+        will-change: transform;
+      }
+
+      #info.show {
+        transform:translate3d(0,0,0);
+      }
+
+      .heading {
+        height: 95px;
+        padding-top: 20px;
+        text-align: left;
+      }
+
+      .heading h1 {
+        font-size: 40px;
+        line-height: 48px;
+        padding: 0;
+        margin: 0;
+      }
+
+      .heading h2 {
+        font-size: 24px;
+        line-height: 30px;
+        padding: 0;
+        margin: 0;
+      }
+
+      .x-label {
+        position:absolute;
+        bottom:-70px;
+        left:50%;
+        transform:translate(-50%,0);
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .y-label {
+        position:absolute;
+        top:50%;
+        left:-70px;
+        transform:translate(-50%,-50%) rotate(-90deg);
+        font-size: 20px;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="sideline">
+        <img class="logo" src="../../img/logo-black.png" height="100" />
+
+        <div class="players">
+          <div class="player" v-for="(player, i) in players">
+            <input type="radio" name="pace" v-bind:value="i" v-model="pacePlayer" v-bind:id="'player'+i" /><label v-bind:for="'player'+i"></label>
+            <button
+              @click="player.active = !player.active"
+              v-bind:class="{active:player.active,inactive:!player.active,'pace-player':player.index==pacePlayer}"
+              v-bind:style="{background:colors(player.active,player.color)}"
+            >{{player.name}}</button>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="heading">
+          <h1>Top 50 NFL QBs</h1>
+          <h2>Relative to <span v-bind:style="{background:colors(true, players[pacePlayer].color)}">{{players[pacePlayer].name}}</span></h2>
+        </div>
+        <div id="graph"
+          v-bind:style="{width:graphWidth+'px', height:graphHeight+'px'}"
+        >
+          <svg v-bind:width="graphWidth" v-bind:height="graphHeight">
+
+            <!-- <path v-for="(player, index) in players" v-bind:d="graphLine(player)" v-bind:class="{active:player.active}" /> -->
+
+            <!-- <path v-bind:d="graphLine(0)" v-bind:style="{stroke: 'blue'}" />
+            <path v-bind:d="graphLine(9)" v-bind:style="{stroke: 'black'}" /> -->
+
+            <!-- <path v-for="(line, index) in lines" v-bind:d="graphLineDiff(index)" v-bind:class="{active:line.active}" /> -->
+
+            <!-- <path
+              v-for="player in inactivePlayers"
+              v-bind:d="graphLine(player)"
+            />
+
+            <path
+              class="active"
+              v-for="player in activePlayers"
+              v-bind:d="graphLine(player)"
+              v-bind:class="{'pace-player':player.index==pacePlayer}"
+              v-bind:style="{stroke:colors(player.color)}"
+            /> -->
+
+            <path
+              v-for="player in players"
+              v-bind:d="graphLine(player)"
+              v-bind:class="{active:player.active,'pace-player':player.index==pacePlayer}"
+              v-bind:style="{stroke:colors(player.active, player.color)}"
+            />
+          </svg>
+
+          <div class="y-guides">
+            <div><span>+25k</span></div>
+            <div><span>+20k</span></div>
+            <div><span>+15k</span></div>
+            <div><span>+10k</span></div>
+            <div><span>+5k</span></div>
+            <div><span>0</span></div>
+            <div><span>-5k</span></div>
+            <div><span>-10k</span></div>
+            <div><span>-15k</span></div>
+            <div><span>-20k</span></div>
+            <div><span>-25k</span></div>
+          </div>
+
+          <div class="x-guides">
+            <div></div>
+            <div><span>1</span></div>
+            <div><span>2</span></div>
+            <div><span>3</span></div>
+            <div><span>4</span></div>
+            <div><span>5</span></div>
+            <div><span>6</span></div>
+            <div><span>7</span></div>
+            <div><span>8</span></div>
+            <div><span>9</span></div>
+            <div><span>10</span></div>
+            <div><span>11</span></div>
+            <div><span>12</span></div>
+            <div><span>13</span></div>
+            <div><span>14</span></div>
+            <div><span>15</span></div>
+            <div><span>16</span></div>
+            <div><span>17</span></div>
+            <div><span>18</span></div>
+            <div><span>19</span></div>
+            <div><span>20</span></div>
+          </div>
+
+          <div class="x-label">Years</div>
+          <div class="y-label">Passing Yards</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./passing-yards.js"></script>
+  </body>
+</html>
