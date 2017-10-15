@@ -8,9 +8,21 @@
 
     <script src="../../js/vue.min.js"></script>
     <script src="../../js/numeral.min.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108139297-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-108139297-1');
+    </script>
+
     <style>
       body {
         font-family: "aktiv-grotesk", sans-serif;
+        color:#222;
       }
 
       h2,h3,h4 {
@@ -159,7 +171,7 @@
         top:0;
         left:0;
         bottom:0;
-        width:300px;
+        width:420px;
         background:#f2f2f2;
         overflow:auto;
       }
@@ -170,8 +182,11 @@
         transform:translate(-50%,-50%);
       }*/
       .logo {
-        float:left;
         margin-right:15px;
+      }
+      .logo-box {
+        text-align:center;
+        padding:20px 0;
       }
       .content {
         position: absolute;
@@ -179,7 +194,7 @@
         top:0;
         right:0;
         bottom:0;
-        left:350px;
+        left:470px;
         text-align:center;
       }
 
@@ -214,12 +229,20 @@
         fill: transparent;
         stroke: #ddd;
         stroke-width:1;
-        transition: d 0.7s;
+        transition: all 0.7s;
       }
 
       path.active {
         stroke: #ff5757;
         stroke-width:3;
+      }
+
+      path.hidden {
+        opacity:0;
+      }
+
+      path.active.hidden {
+        opacity:1;
       }
 
       svg.summary path.active:not(.pace-player) {
@@ -392,6 +415,9 @@
       button.inactive {
         background:transparent !important;
       }
+      button.pace-player.inactive {
+        color:#000;
+      }
       button.pace-player {
         background:#222;
         color:#fff;
@@ -399,7 +425,8 @@
 
       .player {
         display: inline-block;
-        width: 50%;
+        width: 33%;
+        width: calc(100% / 3);
       }
 
       .pace-player {
@@ -427,7 +454,6 @@
         height: 110px;
         padding-top: 25px;
         text-align: left;
-        transform:translateX(-40px);
       }
 
       .heading h1 {
@@ -471,7 +497,7 @@
       .players .era {
         font-size:12px;
         font-weight:bold;
-        padding:15px 0 2px 27px;
+        padding:15px 0 2px 0;
 
       }
 
@@ -479,6 +505,15 @@
         font-size: 12px;
         font-weight: bold;
         transform:translate(3px,4px);
+        transition: all 0.7s;
+      }
+
+      .player-text.hidden {
+        opacity:0;
+      }
+
+      .player-text.hidden.active {
+        opacity:1;
       }
 
       #game-select {
@@ -500,39 +535,115 @@
         border-right:1px solid rgba(0,0,0,.15);
         display:none;
       }
+
+      .player-list {
+        position:relative;
+        overflow:hidden;
+        transition: all .3s ease-in-out;
+      }
+
+      .era-arrow {
+        position:relative;
+        transition: all .3s ease-in-out;
+        top: 2px;
+        left: -3px;
+      }
+
+      .era-arrow.show {
+        transform: rotate(180deg);
+      }
+
+      .nav {
+        padding-bottom:7px;
+        border-bottom:2px solid #222;
+      }
+
+      .nav button {
+        background:transparent;
+        border:none;
+        padding:5px 10px;
+        border-radius:4px;
+      }
+
+      .nav button.active {
+        background:#222;
+        color:#fff;
+      }
+
+      .about {
+        padding-top:30px;
+      }
+
+      .about h2 {
+        margin-bottom:5px;
+      }
+
+      .about p {
+        line-height:1.5;
+        font-size:14px;
+      }
     </style>
   </head>
   <body>
     <div id="app">
       <div class="sideline">
-        
+        <div class="logo-box">
+          <a href="/"><img class="logo" src="../../img/logo-black.png" height="90" /></a>
+        </div>
 
-        <div class="players">
+        <div class="nav">
+          <button
+            @click="nav = 'players'"
+            v-bind:class="{active:nav=='players'}"
+          >Players</button>
+          <button
+            @click="nav = 'about'"
+            v-bind:class="{active:nav=='about'}"
+          >About</button>
+        </div>
+
+        <div class="about" v-if="nav == 'about'">
+          <h2>Relative Passing Yards</h2>
+          <p>All QB passing yards are plotted in relation to the selected QB (currently {{players[pacePlayer].name}}). That's why the selected player's line appears as a flat line in the middle of the graph. This makes it easier to compare players.</p>
+
+          <p>Try selecting Peyton Manning and highlighting Drew Brees. Manning was very consistent and outplayed Brees early in his career. Then Brees got traded to the Saints. His trajectory dramatically changed and he clearly outplayed Manning throughout the middle of his career. At this pace, Drew Brees should hold the record for passing yards in about a year.</p>
+        </div>
+
+        <div class="players" v-if="nav == 'players'">
           <div class="eras" v-for="(era, eraIndex) in eras">
             <div>
+              <img
+                class="era-arrow"
+                src="arrow.svg"
+                v-bind:class="{show:era.shown}"
+              >
               <button
                 class="era"
-                @click="selectEra(eraIndex)"
-              >{{era}}</button>
+                @click="selectEra(era)"
+              >{{era.name}}</button>
             </div>
             <div
-              class="player"
-              v-for="(player, i) in playersFrom(eraIndex)"
+              class="player-list"
+              v-bind:style="{height: playerListHeight(eraIndex) + 'px'}"
             >
-              <input type="radio" name="pace" v-bind:value="player.index" v-model="pacePlayer" v-bind:id="'player'+player.index" /><label v-bind:for="'player'+player.index"></label>
-              <button
-                @click="player.active = !player.active;updatePlayerLabel(player);"
-                v-bind:class="{active:player.active,inactive:!player.active,'pace-player':player.index==pacePlayer}"
-                v-bind:style="{background:colors(player.active,player.color)}"
-              >{{player.name}}</button>
+              <div
+                class="player"
+                v-for="(player, i) in playersFrom(eraIndex)"
+                v-if="era.shown"
+              >
+                <input type="radio" name="pace" v-bind:value="player.index" v-model="pacePlayer" v-bind:id="'player'+player.index" /><label v-bind:for="'player'+player.index"></label>
+                <button
+                  @click="player.active = !player.active;updatePlayerLabel(player);"
+                  v-bind:class="{active:player.active,inactive:!player.active,'pace-player':player.index==pacePlayer}"
+                  v-bind:style="{background:colors(player.active,player.color)}"
+                >{{player.name}}</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="content">
         <div class="heading">
-          <img class="logo" src="../../img/logo-black.png" height="80" />
-
           <h1>Top 50 NFL QBs</h1>
           <h2>Relative to <span v-bind:style="{background:colors(true, players[pacePlayer].color)}">{{players[pacePlayer].name}}</span></h2>
         </div>
@@ -549,7 +660,7 @@
             <path
               v-for="player in players"
               v-bind:d="graphLine(player)"
-              v-bind:class="{active:player.active,'pace-player':player.index==pacePlayer}"
+              v-bind:class="{active:player.active,'pace-player':player.index==pacePlayer,hidden:!eras[player.era].shown}"
               v-bind:style="{stroke:colors(player.active, player.color)}"
               v-bind:id="'player-path-'+player.index"
             />
@@ -559,7 +670,7 @@
               v-for="player in players"
               v-bind:x="player.x"
               v-bind:y="player.y"
-              v-bind:class="{active:player.active,'pace-player':player.index==pacePlayer}"
+              v-bind:class="{active:player.active,'pace-player':player.index==pacePlayer,hidden:!eras[player.era].shown}"
               v-bind:style="{fill:colors(player.active, player.color)}"
             >
               {{player.name.split(' ')[1]}}
