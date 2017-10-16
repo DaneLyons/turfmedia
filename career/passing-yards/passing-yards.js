@@ -3,7 +3,7 @@ Vue.filter("formatNumber", function (value) {
 });
 
 Vue.filter("formatK", function (value) {
-  return numeral(value).format("0.0a");
+  return numeral(value).format("0.[0]a");
 });
 
 var app = new Vue({
@@ -15,7 +15,7 @@ var app = new Vue({
     nav: 'players',
     showInfo: false,
     currentGame: 266,
-    currentYards: 71940,
+    currentYards: 0, //71940
     eras: [
       { name:"Drafted after 2000", shown:true },
       { name:"1990-1999", shown:true },
@@ -197,7 +197,8 @@ var app = new Vue({
           yards += games[i];
         }
       }
-      this.currentYards = Math.floor(yards);
+      this.currentYards = 0;
+      //this.currentYards = Math.floor(yards);
     },
     pacePlayer: function(next, previous) {
       var players = this.players;

@@ -19,7 +19,7 @@
       gtag('config', 'UA-108139297-1');
     </script>
 
-    <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=59e40aecb5be7d00122ca11e&product=inline-share-buttons' async='async'></script>
+    <script type='text/javascript' src='http://platform-api.sharethis.com/js/sharethis.js#property=59e40aecb5be7d00122ca11e&product=inline-share-buttons' async='async'></script>
 
     <style>
       body {
@@ -453,6 +453,7 @@
       }
 
       .heading {
+        position:relative;
         height: 110px;
         padding-top: 25px;
         text-align: left;
@@ -485,6 +486,7 @@
         position:absolute;
         top:50%;
         left:-77px;
+        left:-60px;
         transform:translate(-50%,-50%) rotate(-90deg);
         font-size: 20px;
         font-weight: 600;
@@ -584,6 +586,26 @@
         line-height:1.5;
         font-size:14px;
       }
+
+      #st-1.st-has-labels .st-btn {
+        min-width: auto !important;
+      }
+
+      .st-label {
+        display:none !important;
+      }
+
+      .sharethis-inline-share-buttons {
+        position:absolute;
+        top:50%;
+        right:0;
+        transform:translateY(-50%);
+      }
+
+      .sharethis-inline-share-buttons path {
+        stroke: transparent;
+        fill: #fff;
+      }
     </style>
   </head>
   <body>
@@ -646,6 +668,8 @@
       </div>
       <div class="content">
         <div class="heading">
+          <div class="sharethis-inline-share-buttons"></div>
+
           <h1>Top 50 NFL QBs</h1>
           <h2>Relative to <span v-bind:style="{background:colors(true, players[pacePlayer].color)}">{{players[pacePlayer].name}}</span></h2>
         </div>
@@ -706,7 +730,7 @@
           <div class="x-label">Active Years</div>
           <div class="y-label">
             Passing Yards<br />
-            <span>at game {{currentGame}}</span>
+            <span style="display:none">at game {{currentGame}}</span>
           </div>
         </div>
       </div>
