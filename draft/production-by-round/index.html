@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>NFL Draft Production Since 2000</title>
+    <meta property="og:description" content="Easily compare quarterbacks against rivals or eras." />
+    <meta property="og:image" content="https://pbs.twimg.com/media/DMLg5yuX4AAW2TO.jpg" />
+    <link href="./style.css" rel="stylesheet" media="screen">
+
+    <script src="https://use.typekit.net/pdv5vix.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    <script src="../../js/vue.min.js"></script>
+    <script src="../../js/numeral.min.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108139297-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-108139297-1');
+    </script>
+
+    <script type='text/javascript' src='http://platform-api.sharethis.com/js/sharethis.js#property=59e40aecb5be7d00122ca11e&product=inline-share-buttons' async='async'></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="sideline">
+        <div class="logo-box">
+          <a href="/"><img class="logo" src="../../img/logo-white.png" height="110" /></a>
+        </div>
+
+        <div class="highlight-header">
+          Highlights
+        </div>
+        <div class="stories">
+          <p style="border-color: #03A9F4;">Chargers represent about <strong>3%</strong> of the league but have scored <strong>6.5%</strong> of the touchdowns.</p>
+          <p>Undrafted players have rushed for more yards than <strong>5th, 6th &amp; 7th</strong> rounders combined.</p>
+          <p>Chargers players represent about 3% of the league but have scored 6.5% of the touchdowns.</p>
+          <p>Chargers players represent about 3% of the league but have scored 6.5% of the touchdowns.</p>
+          <p>Chargers players represent about 3% of the league but have scored 6.5% of the touchdowns.</p>
+        </div>
+      </div>
+      <div class="content" v-cloak>
+        <div class="heading">
+          <h1>NFL Draft Production</h1>
+          <h2>Since the 2000 NFL Draft</h2>
+
+          <div class="stat-dropdown">
+            <div class="current" @click="show_stats = !show_stats">
+              {{active_stat | statLabel}}
+              <img
+                class="stat-arrow"
+                src="arrow.svg"
+                v-bind:class="{active: show_stats}"
+              >
+            </div>
+            <transition name="fade">
+              <div class="options" v-if="show_stats" @click="show_stats = !show_stats">
+                <button
+                  @click="setActiveStat('touchdowns')"
+                  v-bind:class="{active:active_stat == 'touchdowns'}"
+                >
+                  Touchdowns
+                </button>
+                <button
+                  @click="setActiveStat('passingYards')"
+                  v-bind:class="{active:active_stat == 'passingYards'}"
+                >
+                  Passing Yards
+                </button>
+                <button
+                  @click="setActiveStat('rushingYards')"
+                  v-bind:class="{active:active_stat == 'rushingYards'}"
+                >
+                  Rushing Yards
+                </button>
+                <button
+                  @click="setActiveStat('receivingYards')"
+                  v-bind:class="{active:active_stat == 'receivingYards'}"
+                >
+                  Receiving Yards
+                </button>
+                <button
+                  @click="setActiveStat('tackles')"
+                  v-bind:class="{active:active_stat == 'tackles'}"
+                >
+                  Tackles
+                </button>
+                <button
+                  @click="setActiveStat('sacks')"
+                  v-bind:class="{active:active_stat == 'sacks'}"
+                >
+                  Sacks
+                </button>
+                <button
+                  @click="setActiveStat('interceptions')"
+                  v-bind:class="{active:active_stat == 'interceptions'}"
+                >
+                  Interceptions
+                </button>
+              </div>
+            </transition>
+          </div>
+        </div>
+
+        <div class="groups">
+          <div class="group-a">
+            <div class="team"  @click="show_teams_a = !show_teams_a">{{active_team_a | teamLabel}}<img class="stat-arrow" src="arrow.svg" v-bind:class="{active: show_teams_a}" />
+              <transition name="fade">
+                <div
+                  class="select"
+                  v-if="show_teams_a"
+                >
+                  <button
+                    v-for="team in teams"
+                    @click="setTeam('a', team)"
+                    v-bind:class="{ active: team == active_team_a }"
+                  >{{team | teamLabel}}</button>
+                </div>
+              </transition>
+            </div>
+            <div class="stat">
+              <span v-bind:style="{ color: colors[color_a] }">{{sumStat('a') | formatNumber}}</span>
+            </div>
+            <div class="stat_label">
+              Total {{active_stat | statLabel}}
+            </div>
+
+            <div class="rounds">
+              <label
+                v-for="i in 7"
+                v-bind:class="{active: active_a[i]}"
+                v-bind:style="{ backgroundColor: active_a[i] ? colors[color_a] : '#f2f2f2' }"
+              >{{i}}<input class="hidden" type="checkbox" v-model="active_a[i]" @click="setTopStat" /></label><label
+                v-bind:class="{active: active_a[0]}"
+                v-bind:style="{ backgroundColor: active_a[0] ? colors[color_a] : '#f2f2f2' }"
+              >Undrafted<input class="hidden" type="checkbox" v-model="active_a[0]" @click="setTopStat" /></label>
+            </div>
+          </div>
+
+          <div class="group-b">
+            <div class="team" @click="show_teams_b = !show_teams_b">{{active_team_b | teamLabel}}<img class="stat-arrow" src="arrow.svg" v-bind:class="{active: show_teams_b}" />
+              <transition name="fade">
+                <div
+                  class="select"
+                  v-if="show_teams_b"
+                >
+                  <button
+                    v-for="team in teams"
+                    @click="setTeam('b', team)"
+                    v-bind:class="{ active: team == active_team_b }"
+                  >{{team | teamLabel}}</button>
+                </div>
+              </transition>
+            </div>
+            <div class="stat">
+              <span v-bind:style="{ color: colors[color_b] }">{{sumStat('b') | formatNumber}}</span>
+            </div>
+            <div class="stat_label">
+              Total {{active_stat | statLabel}}
+            </div>
+
+            <div class="rounds">
+              <label
+                v-for="i in 7"
+                v-bind:class="{active: active_b[i]}"
+                v-bind:style="{ backgroundColor: active_b[i] ? colors[color_b] : '#f2f2f2' }"
+              >{{i}}<input class="hidden" type="checkbox" v-model="active_b[i]" @click="setTopStat" /></label><label
+                v-bind:class="{active: active_b[0]}"
+                v-bind:style="{ backgroundColor: active_b[0] ? colors[color_b] : '#f2f2f2' }"
+              >Undrafted<input class="hidden" type="checkbox" v-model="active_b[0]" @click="setTopStat" /></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="players">
+          <div class="team-a">
+            <div class="guides">
+              <div><span>{{top_stat | formatK}}</span></div>
+              <div><span>{{top_stat * .8 | formatK}}</span></div>
+              <div><span>{{top_stat * .6 | formatK}}</span></div>
+              <div><span>{{top_stat * .4 | formatK}}</span></div>
+              <div><span>{{top_stat * .2 | formatK}}</span><span>0</span></div>
+            </div>
+
+            <div v-for="(player, index) in sortPlayers('a')">
+              <div class="bar" v-if="index < 200 && player[active_stat] > 0">
+                <div
+                  class="fill"
+                  v-bind:style="{
+                    background: colors[color_a],
+                    width: (player[active_stat] / top_stat) * 100 + '%'
+                  }"
+                >
+                  <div class="label">
+                    {{player.name}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="others" v-if="sortPlayers('a').length > 200">
+              {{sortPlayers('a').length - 200 | formatNumber}} players not shown
+            </div>
+          </div>
+
+          <div class="team-b">
+            <div class="guides">
+              <div><span>{{top_stat | formatK}}</span></div>
+              <div><span>{{top_stat * .8 | formatK}}</span></div>
+              <div><span>{{top_stat * .6 | formatK}}</span></div>
+              <div><span>{{top_stat * .4 | formatK}}</span></div>
+              <div><span>{{top_stat * .2 | formatK}}</span><span>0</span></div>
+            </div>
+
+            <div v-for="(player, index) in sortPlayers('b')">
+              <div class="bar" v-if="index < 200 && player[active_stat] > 0">
+                <div
+                  class="fill"
+                  v-bind:style="{
+                    background: colors[color_b],
+                    width: (player[active_stat] / top_stat) * 100 + '%'
+                  }"
+                >
+                  <div class="label">
+                    {{player.name}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="others" v-if="sortPlayers('b').length > 200">
+              {{sortPlayers('b').length - 200 | formatNumber}} players not shown
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="./data.js?v=1"></script>
+  </body>
+</html>

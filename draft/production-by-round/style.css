@@ -1,0 +1,551 @@
+body {
+  font-family: "aktiv-grotesk", sans-serif;
+  color:#121D23;
+}
+
+*:focus {
+  outline: none;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+h2,h3,h4 {
+  font-weight: 600;
+}
+
+h1 {
+  font-weight: 900;
+}
+
+h2 span {
+  color:#fff;
+  padding:0 7px 3px 7px;
+  font-weight:400;
+  border-radius:4px;
+}
+
+.sideline {
+  position: fixed;
+  padding: 120px 25px 25px 25px;
+  top:0;
+  left:0;
+  bottom:0;
+  width:320px;
+  background:#f2f2f2;
+  overflow:auto;
+}
+/*.logo {
+  position:absolute;
+  top:5px;
+  left:50%;
+  transform:translate(-50%,-50%);
+}*/
+.logo {
+  margin-right:15px;
+}
+.logo-box {
+  text-align:center;
+  padding:20px 0;
+  background: #121D23;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 57px;
+}
+.content {
+  position: absolute;
+  padding: 0;
+  top:0;
+  right:0;
+  bottom:0;
+  left:370px;
+  text-align:center;
+  padding-top: 97px;
+}
+
+.heading {
+  padding: 15px 100px;
+  height: 67px;
+  background: #f2f2f2;
+  text-align: left;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 370px;
+  z-index: 1000;
+}
+
+.heading h1 {
+  margin: 0;
+}
+
+.heading h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.highlight-header {
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  top: 150px;
+  left: 40px;
+  right: 40px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #121D23;
+  background: #f2f2f2;
+}
+
+.stories {
+  position: absolute;
+  top: 200px;
+  left: 20px;
+  right: 20px;
+  bottom: 120px;
+  overflow: scroll;
+}
+
+.stories p {
+  border-left: 10px solid #121D23;
+  padding: 10px;
+  font-size: 14px;
+  margin: 0 0 20px 0;
+}
+
+.stories p strong {
+  font-weight: bold;
+}
+
+.nav {
+  padding-bottom:7px;
+  border-bottom:2px solid #121D23;
+}
+
+.nav button {
+  background:transparent;
+  border:none;
+  padding:5px 10px;
+  border-radius:4px;
+}
+
+.nav button.active {
+  background:#121D23;
+  color:#fff;
+}
+
+.about {
+  padding-top:30px;
+}
+
+.about h2 {
+  margin-bottom:5px;
+}
+
+.about p {
+  line-height:1.5;
+  font-size:14px;
+}
+
+#st-1.st-has-labels .st-btn {
+  min-width: auto !important;
+}
+
+.st-btn .st-label {
+  display:none !important;
+}
+
+.sharethis-inline-share-buttons {
+  position:absolute;
+  top:50%;
+  right:0;
+  transform:translateY(-50%);
+}
+
+.sharethis-inline-share-buttons path {
+  stroke: transparent;
+  fill: #fff;
+}
+
+.players {
+  position: relative;
+  padding-bottom: 25px;
+}
+
+.team-a {
+  position: absolute;
+  top:0;
+  left: 100px;
+  right:50%;
+  right: calc(50% + 3px);
+  margin-bottom: 50px;
+  min-height: calc(100vh - 200px);
+  padding-top: 17px;
+}
+
+.team-b {
+  position: absolute;
+  top:0;
+  right: 100px;
+  left:50%;
+  left: calc(50% + 3px);
+  margin-bottom: 50px;
+  min-height: calc(100vh - 200px);
+  padding-top: 17px;
+}
+
+.bar {
+  width: 100%;
+  position: relative;
+  height: 16px;
+  position: inline-block;
+}
+
+.fill {
+  position: absolute;
+  height: 10px;
+  top:0;
+  left:0;
+  min-width: 1px;
+}
+
+.team-a .fill {
+  left: auto;
+  right: 0;
+  z-index: 100;
+}
+
+.fill .label {
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  transform: translate(-100%,-50%);
+  opacity: 1;
+  transition: opacity 200ms ease-in-out;
+  font-size: 10px;
+  color: #777;
+  text-align: right;
+  background: #fff;
+  background: transparent;
+  padding: 2px 0;
+  opacity: 1;
+  white-space: nowrap;
+}
+
+.team-b .fill .label {
+  left: auto;
+  right: -8px;
+  transform: translate(100%,-50%);
+  text-align:left;
+}
+
+.others {
+  position:relative;
+  font-size: 14px;
+  font-weight: bold;
+  color: #777;
+  background: #fff;
+  text-align: center;
+  padding: 10px;
+  margin-top: 15px;
+}
+
+
+.groups {
+  height: 270px;
+  position: relative;
+}
+
+.group-a {
+  position: absolute;
+  top:0;
+  left:100px;
+  right:50%;
+  right: calc(50% + 3px);
+  height: 247px;
+}
+
+.group-b {
+  position: absolute;
+  top:0;
+  right:100px;
+  left:50%;
+  left: calc(50% + 3px);
+  height: 247px;
+}
+
+.hidden {
+  display: none;
+}
+
+button,
+label {
+  text-align: center;
+  background: #f7f7f7;
+  font-weight: bold;
+  border: none;
+  padding: 0 10px;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  user-select: none;
+}
+
+button.active,
+label.active {
+  background: #121D23;
+  color: #fff;
+}
+
+.rounds {
+  display: flex;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.rounds label {
+  flex:1;
+}
+
+.group-a label.active {
+  background: #F44336;
+}
+
+.group-b label.active {
+  background: #2196F3;
+}
+
+.team {
+  position:relative;
+  margin-top: 50px;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.team .stat-arrow {
+  transform: scale(1);
+  margin-right: -24px;
+}
+
+.team .stat-arrow.active {
+  transform: scale(1) rotate(180deg);
+}
+
+.team .select {
+  position:absolute;
+  width: 620px;
+  background: #f2f2f2;
+  box-shadow: 0 0 40px rgba(0,0,0,.15);
+  bottom: -10px;
+  left:50%;
+  z-index: 999;
+}
+
+.team .select button {
+  width: 25%;
+  font-size: 12px;
+  padding: 0;
+}
+
+.team .select button:first-child {
+  width: 100%;
+  height: 60px;
+  font-size: 14px;
+}
+
+.stat {
+  font-size: 70px;
+  font-weight: 800;
+  padding-top: 0px;
+  line-height: 1;
+}
+
+.group-a .stat {
+  color: #F44336;
+}
+
+.group-b .stat {
+  color: #2196F3;
+}
+
+.stat_label {
+  font-size: 12px;
+  color: #777;
+  text-transform: uppercase;
+  padding-top: 5px;
+}
+
+.guides div {
+  position:absolute;
+  top:-10px;
+  bottom:0;
+  left:0;
+  width: 20%;
+  background: #f7f7f7;
+}
+.guides div:nth-child(2) {
+  left: 20%;
+  background: #fff;
+}
+.guides div:nth-child(3) {
+  left: 40%;
+}
+.guides div:nth-child(4) {
+  left: 60%;
+  background: #fff;
+}
+.guides div:nth-child(5) {
+  left: 80%;
+}
+
+.team-b .guides div {
+  left: auto;
+  right: 0%;
+}
+.team-b .guides div:nth-child(2) {
+  right: 20%;
+}
+.team-b .guides div:nth-child(3) {
+  right: 40%;
+}
+.team-b .guides div:nth-child(4) {
+  right: 60%;
+}
+.team-b .guides div:nth-child(5) {
+  right: 80%;
+}
+
+
+.guides div span {
+  font-size: 11px;
+  color: #666;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+
+.guides div span:nth-child(2) {
+  left: auto;
+  right: 4px;
+}
+
+.team-b .guides div span {
+  left: auto;
+  right: 4px;
+}
+
+.team-b .guides div span:nth-child(2) {
+  left: 4px;
+  right: auto;
+}
+
+.active-stat {
+  text-align: left;
+  padding: 10px 0 25px 50px;
+}
+
+.sideline .groups {
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.sideline .groups .group-a,
+.sideline .groups .group-b {
+  position: static;
+}
+
+.stat-dropdown {
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  cursor: pointer;
+}
+
+.stat-dropdown .current {
+  line-height: 97px;
+  font-size: 24px;
+  position: relative;
+  background: #f2f2f2;
+  padding:0 25px;
+  min-width: 250px;
+  text-align: right;
+  z-index: 100;
+  margin-right: 40px;
+}
+
+.stat-dropdown .options {
+  position: absolute;
+  top: 97px;
+  right: 50px;
+  width: 200px;
+  background: #f2f2f2;
+  box-shadow: 0 0 40px rgba(0,0,0,.15);
+  z-index: 99;
+}
+
+.stat-dropdown .options button {
+  width: 200px;
+  height: 50px;
+  line-height: 60px;
+  padding: 0;
+  text-align: center;
+  font-size: 14px;
+  background: #f7f7f7;
+}
+
+.stat-dropdown .options button:hover {
+  background: #ddd;
+}
+
+.stat-dropdown .options button.active {
+  background: #121D23;
+}
+
+.stat-arrow {
+  transform: scale(1.4);
+  transition: all 200ms ease-in-out;
+}
+
+.stat-arrow.active {
+  transform: scale(1.4) rotate(180deg);
+}
+
+.team {
+  cursor: pointer;
+}
+
+.stat-dropdown .options {
+
+}
+.team .select {
+  transform: translate(-50%, 100%) scale(1);
+}
+.team .select button:hover {
+  background: #ddd;
+}
+.team .select button.active {
+  background: #121D23;
+}
+
+.stat-dropdown .fade-enter-active, .stat-dropdown .fade-leave-active,
+.team .fade-enter-active, .team .fade-leave-active {
+  transition: all .2s ease-in-out;
+}
+.stat-dropdown .fade-enter, .stat-dropdown .fade-leave-to {
+  opacity: 0;
+  transform: translate(0, -50px) scale(.95);
+}
+.team .fade-enter, .team .fade-leave-to {
+  opacity: 0;
+  transform: translate(-50%, 105%) scale(.95);
+}
