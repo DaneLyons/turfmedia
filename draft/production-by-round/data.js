@@ -123,6 +123,7 @@ var app = new Vue({
     top_stat: 560,
     color_a: 'red',
     color_b: 'blue',
+    story_slides: 0,
     teams: ['ALL', 'ARI', 'ATL', 'BAL', 'BUF', 'CAR', 'CHI', 'CIN', 'CLE', 'DAL', 'DEN', 'DET', 'GB', 'HOU', 'IND', 'JAC', 'KC', 'STL', 'SD', 'MIA', 'MIN', 'NE', 'NO', 'NYG', 'NYJ', 'OAK', 'PHI', 'PIT', 'SEA', 'SF', 'TB', 'TEN', 'WAS'],
     colors: {
       red: '#F44336',
@@ -222,8 +223,6 @@ var app = new Vue({
 
         this.top_stat = top - (top % 10) + 10;
 
-        console.log(roundString(this.active_a));
-
         var url = new URL(window.location.href);
         url.searchParams.set("team_a", this.active_team_a);
         url.searchParams.set("team_b", this.active_team_b);
@@ -253,6 +252,28 @@ var app = new Vue({
         this['color_'+group] = teamColors[team][1];
       }
 
+      this.setTopStat();
+    },
+    storySelect: function(rounds_a, rounds_b, active_team_a, active_team_b, active_stat) {
+      var active_a = [false, false, false, false, false, false, false, false];
+      rounds_a.split(',').map(function(round){
+        active_a[round] = true;
+      });
+      var active_b = [false, false, false, false, false, false, false, false];
+      rounds_b.split(',').map(function(round){
+        active_b[round] = true;
+      });
+
+      this.active_a = active_a;
+      this.active_b = active_b;
+      this.active_stat = active_stat;
+      this.active_team_a = active_team_a;
+      this['color_a'] = teamColors[active_team_a][0];
+      this.active_team_b = active_team_b;
+      this['color_b'] = teamColors[active_team_b][0];
+      if(this.color_a == this.color_b){
+        this['color_b'] = teamColors[active_team_b][1];
+      }
       this.setTopStat();
     }
   },

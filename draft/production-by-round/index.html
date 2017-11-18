@@ -32,21 +32,82 @@
           <a href="/"><img class="logo" src="../../img/logo-white.png" height="110" /></a>
         </div>
 
-        <div class="highlight-header">
-          Highlights
-        </div>
         <div class="stories">
-          <p style="border-color: #03A9F4;">Chargers represent about <strong>3%</strong> of the league but have scored <strong>6.5%</strong> of the touchdowns.</p>
-          <p>Undrafted players have rushed for more yards than <strong>5th, 6th &amp; 7th</strong> rounders combined.</p>
-          <p>Chargers players represent about 3% of the league but have scored 6.5% of the touchdowns.</p>
-          <p>Chargers players represent about 3% of the league but have scored 6.5% of the touchdowns.</p>
-          <p>Chargers players represent about 3% of the league but have scored 6.5% of the touchdowns.</p>
+          <div class="highlight-header">
+            Highlights
+
+            <div class="dots">
+              <div class="dot" @click="story_slides = 0" v-bind:class="{active: story_slides == 0}"></div>
+              <div class="dot" @click="story_slides = 1" v-bind:class="{active: story_slides == 1}"></div>
+              <div class="dot" @click="story_slides = 2" v-bind:class="{active: story_slides == 2}"></div>
+              <div class="dot" @click="story_slides = 3" v-bind:class="{active: story_slides == 3}"></div>
+            </div>
+          </div>
+          <div class="slides" v-bind:style="{transform:'translateX(-'+(story_slides*300)+'px)'}">
+            <div class="slide">
+              <p
+                @click="storySelect('1','0,2,3,4,5,6,7','ALL','ALL','passingYards')"
+                style="border-color: #f44336;"
+              ><strong>1st rounders</strong> have passed for more yards than all other rounds combined.</p>
+              <p
+                @click="storySelect('0,1,2,3,4,5,6,7','0,1,2,3,4,5,6,7','SD','KC','touchdowns')"
+                style="border-color: #03A9F4;"
+              >Chargers draftees have the most touchdowns <strong>(1,731)</strong>. Chiefs have the least <strong>(450)</strong>.</p>
+              <p
+                @click="storySelect('0','5,6,7','ALL','ALL','rushingYards')"
+              >Undrafted players have rushed for more yards than <strong>5th, 6th &amp; 7th</strong> rounders combined.</p>
+            </div>
+            <div class="slide">
+              <p
+                @click="storySelect('0,1,2,3,4,5,6,7','0,1,2,3,4,5,6,7','GB','ATL','sacks')"
+                style="border-color: #4caf50;"
+              >Packers draftees have the most sacks <strong>(657)</strong>. Falcons have the least <strong>(283)</strong>.</p>
+              <p
+                @click="storySelect('0','5,6,7','ALL','ALL','receivingYards')"
+              >Undrafted players have more receiving yards than <strong>5th, 6th &amp; 7th</strong> rounders combined.</p>
+              <p
+                @click="storySelect('0,1,2,3,4,5,6,7','0,1,2,3,4,5,6,7','BUF','NE','rushingYards')"
+                style="border-color: #2196f3;"
+              >Bills draftees have the most rushing yards <strong>(42,772)</strong>. Patriots have the least <strong>(18,417)</strong>.</p>
+            </div>
+            <div class="slide">
+              <p
+                @click="storySelect('0','3','ALL','ALL','tackles')"
+              >Undrafted players have more tackles (43,347) than 3rd round draftees (30,007).</p>
+              <p
+                @click="storySelect('1','1','ATL','DAL','passingYards')"
+                style="border-color: #f44336;"
+              >The Falcons 1st rounders have passed for <strong>65,475</strong> yards. The Cowboys have <strong>10</strong> passing yards by Dez Bryant.</p>
+              <p
+                @click="storySelect('1','1','NYJ','MIA','sacks')"
+                style="border-color: #4caf50;"
+              >The Jets have the most 1st round sacks (377). The Dolphins have the least (31).</p>
+            </div>
+            <div class="slide">
+              <p
+                @click="storySelect('0','0','DAL','CIN','touchdowns')"
+                style="border-color: #2196f3;"
+              >Cowboy have the most undrafted TDs <strong>(439)</strong>. Bengals have the least <strong>(23)</strong>.</p>
+              <p
+                @click="storySelect('1','1','IND','WAS','receivingYards')"
+                style="border-color: #2196f3;"
+              >Colts have the most 1st round receiving yards <strong>(27,304)</strong>. Redskins have the least <strong>(5,463)</strong>.</p>
+              <p
+                @click="storySelect('1','1','BAL','DET','interceptions')"
+                style="border-color: #673ab7;"
+              >Ravens have the most 1st round interceptions <strong>(106)</strong>. Lions have the least <strong>(2)</strong>.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ad">
+          <iframe scrolling='no' frameBorder='0' style='padding:0px; margin:0px; border:0px;border-style:none;border-style:none;' width='300' height='100' src="http://wlfanduel.adsrv.eacdn.com/I.ashx?btag=a_11702b_1622c_&affid=8390&siteid=11702&adid=1622&c=" ></iframe>
         </div>
       </div>
       <div class="content" v-cloak>
         <div class="heading">
           <h1>NFL Draft Production</h1>
-          <h2>Since the 2000 NFL Draft</h2>
+          <h2>Stats from 2000 to 2017</h2>
 
           <div class="stat-dropdown">
             <div class="current" @click="show_stats = !show_stats">
