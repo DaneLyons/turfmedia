@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>Turf Media - Sports data visualized</title>
+    <link href="./style.css" rel="stylesheet" media="screen">
+
     <script src="https://use.typekit.net/pdv5vix.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
 
@@ -16,81 +18,64 @@
       gtag('config', 'UA-108139297-1');
     </script>
 
-    <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=59e40aecb5be7d00122ca11e&product=inline-share-buttons' async='async'></script>
-
-    <meta name="google-site-verification" content="XLFxarMj7n_XLbcnDk319venzR2ncFXWynTrl7n65CE" />
+    <script type='text/javascript' src='http://platform-api.sharethis.com/js/sharethis.js#property=59e40aecb5be7d00122ca11e&product=inline-share-buttons' async='async'></script>
 
   </head>
   <body>
-    <style type="text/css">
-      body {
-        font-family: "aktiv-grotesk", sans-serif;
-        text-align:center;
-        margin:0;
-        padding:0;
-      }
-
-      h1 {
-        margin-bottom:0;
-      }
-      h2 {
-        font-size:18px;
-        color:#444;
-        margin-top:0;
-        margin-bottom:50px;
-      }
-
-      .content {
-        position:absolute;
-        top:50%;
-        left:50%;
-        transform:translate(-50%,-50%);
-      }
-
-      #ph-email-form {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        flex-direction: row;
-      }
-
-      #ph-email {
-        width:233px;
-        border: 1px solid #e8e8e8;
-        box-sizing: border-box;
-        color: #000000;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-        font-size: 13px;
-        padding: 8px;
-      }
-
-      #ph-subscribe-button {
-        margin-left: 10px;
-        background: #da552f;
-        border-radius: 3px;
-        border: 1px solid #da552f;
-        box-sizing: border-box;
-        color: #ffffff;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-        font-size: 11px;
-        font-weight: 600;
-        height: 34px;
-        letter-spacing: .3px;
-        line-height: 16px;
-        padding: 0 13px;
-        text-transform: uppercase;
-      }
-    </style>
-
-    <div class="content">
+    <div class="header">
       <img class="logo" src="img/logo-black.png" height="100" />
-      <h1>Sports data visualized</h1>
-      <h2>coming soon</h2>
+      <div class="lines">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="section">
+        <div class="img"><a href="/draft/tycoons"><img src="./img/screenshots/draft-compare.png" /></a></div><div class="text">
+          <h1><a href="/draft/tycoons">NFL Draft Tycoons</a></h1>
+          <p>See who has won and lost the NFL Draft since 2000. Compare teams based on how their draftees have performed in 7 key statistical categories. (Touchdowns, Passing Yards, Rushing Yards, Receiving Yards, Tackles, Sacks and Interceptions)</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="img"><a href="/career/passing-yards"><img src="./img/screenshots/top-qbs.png" /></a></div><div class="text">
+          <h1><a href="/career/passing-yards">Top 50 NFL QBs</a></h1>
+          <p>Compare careers of the top 50 NFL quarterbacks by passing yards. See the pace current players are on compared to the legends.</p>
+        </div>
+      </div>
 
-      <form action="https://api.producthunt.com/widgets/upcoming/v1/upcoming/turf-media/forms" method="post" id="ph-email-form" name="ph-email-form" target="_blank">
-        <input type="email" value="" name="email" id="ph-email" placeholder="Email Address" required />
-        <input type="submit" value="Subscribe" name="subscribe" id="ph-subscribe-button" />
-      </form>
+      <div class="signup">
+        <h2>Get updates when new graphs are released<h2>
+        <form action="https://api.producthunt.com/widgets/upcoming/v1/upcoming/turf-media/forms" method="post" id="ph-email-form" name="ph-email-form" target="_blank">
+          <input type="email" value="" name="email" id="ph-email" placeholder="Email Address" required />
+          <input type="submit" value="Subscribe" name="subscribe" id="ph-subscribe-button" />
+        </form>
+      </div>
+
+      <div class="about">
+        <div class="lines">
+          <div></div>
+          <div></div>
+        </div>
+        <div class="avatar-box">
+          <div class="avatar"></div>
+        </div>
+
+        <div class="text">
+          <p><strong>Dane Lyons</strong></p>
+
+          <div class="section">
+            <div>
+              <h2>About</h2>
+              <p>Turf Media is a side project I recently started to explore visualizing sports data. Today sports stats are typically displayed in a tabular format. So many stories are lost to the number soup. I intend to make stats visual and interactive to help fans discover some of the hidden stories.</p>
+              <p>I've been a fan of various sports for over 30 years. It all started with the NFL but I'll watch anything competitive. I've also been designing and writing code for about 15 years. Turf Media finally gives me a tool to combine my hobbies.</p>
+              <p>For my next visualization, I'm thinking about creating a comparison tool to look at two players careers side by side in a heatmap-like visualization. Stay tuned!</p>
+            </div><div class="center-text">
+              <p><a href="mailto:dane@turf.media">dane@turf.media</a></p>
+              <div class="sharethis-inline-share-buttons"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

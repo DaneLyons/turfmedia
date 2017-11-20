@@ -1,0 +1,171 @@
+body {
+  font-family: "aktiv-grotesk", sans-serif;
+  color:#121D23;
+  text-align:center;
+  margin:0;
+  padding:0;
+}
+
+a {
+  color:#121D23;
+  text-decoration: none;
+}
+
+h1 {
+  margin-bottom:0;
+  font-weight: bold;
+}
+h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.header {
+  position: relative;
+  height: 90px;
+}
+
+.header .logo {
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translate(-50%, 50%);
+}
+
+.about .lines div,
+.header .lines div {
+  position: absolute;
+  border-bottom: 3px solid #121D23;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(60px);
+  width: 400px;
+  height: 0;
+}
+
+.header .lines div:last-child {
+  left: auto;
+  right: 50%;
+  transform: translateX(-60px);
+}
+
+.about .lines div {
+  top: 53px;
+  transform: translateX(70px);
+  width: 390px;
+}
+
+.about .lines div:last-child {
+  left: auto;
+  right: 50%;
+  transform: translateX(-70px);
+}
+
+.content {
+  width: 920px;
+  margin: 120px auto;
+}
+
+.section {
+  margin-bottom: 75px;
+}
+
+.section div {
+  width: 440px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.section div:first-child {
+  margin-right: 40px;
+}
+
+.section div.img img {
+  width: 100%;
+}
+
+.section div.center-text {
+  font-size: 18px;
+  text-align: center;
+}
+
+.section div.center-text a {
+  color: #2196F3;
+}
+
+.signup {
+  border-top: 3px solid #121D23;
+  padding: 75px;
+  position: relative;
+}
+
+.signup h2 {
+  margin-bottom: 15px;
+}
+
+.about {
+  position: relative;
+  margin: 50px 0;
+}
+
+.about .text {
+  padding: 100px 0 0 0;
+}
+
+.avatar-box {
+  width: 106px;
+  height: 106px;
+  border-radius: 100%;
+  border: 3px solid #121D23;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  background-image: url('./img/dane.jpg');
+  background-size: contain;
+  border: 3px solid #fff;
+}
+
+#ph-email-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#ph-email {
+  width:233px;
+  border: 1px solid #e8e8e8;
+  box-sizing: border-box;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: 13px;
+  padding: 8px;
+}
+
+#ph-subscribe-button {
+  margin-left: 10px;
+  background: #da552f;
+  border-radius: 3px;
+  border: 1px solid #da552f;
+  box-sizing: border-box;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: 11px;
+  font-weight: 600;
+  height: 34px;
+  letter-spacing: .3px;
+  line-height: 16px;
+  padding: 0 13px;
+  text-transform: uppercase;
+}

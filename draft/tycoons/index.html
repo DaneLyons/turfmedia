@@ -2,9 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>NFL Draft Production Since 2000</title>
-    <meta property="og:description" content="Easily compare quarterbacks against rivals or eras." />
-    <meta property="og:image" content="https://pbs.twimg.com/media/DMLg5yuX4AAW2TO.jpg" />
+    <title>NFL Draft Tycoons: Stats from 2000 to 2017</title>
     <link href="./style.css" rel="stylesheet" media="screen">
 
     <script src="https://use.typekit.net/pdv5vix.js"></script>
@@ -106,7 +104,7 @@
       </div>
       <div class="content" v-cloak>
         <div class="heading">
-          <h1>NFL Draft Production</h1>
+          <h1>NFL Draft Tycoons</h1>
           <h2>Stats from 2000 to 2017</h2>
 
           <div class="stat-dropdown">
@@ -168,6 +166,7 @@
         </div>
 
         <div class="groups">
+          <div class="vs">VS</div>
           <div class="group-a">
             <div class="team"  @click="show_teams_a = !show_teams_a">{{active_team_a | teamLabel}}<img class="stat-arrow" src="arrow.svg" v-bind:class="{active: show_teams_a}" />
               <transition name="fade">
@@ -297,6 +296,18 @@
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <div class="mobile">
+      <div class="message">
+        <img class="logo" src="../../img/logo-black.png" height="100" />
+        <h1>Sorry, this graph is too big to fit on a phone or tablet :(</h1>
+
+        <form action="https://api.producthunt.com/widgets/upcoming/v1/upcoming/turf-media/forms" method="post" id="ph-email-form" name="ph-email-form" target="_blank">
+          <input type="email" value="" name="email" id="ph-email" placeholder="Email Address" required />
+          <input type="submit" value="Subscribe" name="subscribe" id="ph-subscribe-button" />
+        </form>
       </div>
     </div>
 
